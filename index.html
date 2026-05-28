@@ -67,6 +67,35 @@
       height: 100vh; display: flex; flex-direction: column;
       justify-content: center; align-items: center;
     }
+
+/* ========================================= */
+    /* ✨ เอฟเฟกต์แสงสะท้อนสำหรับบัตรพรีเมียม ✨ */
+    /* ========================================= */
+    .premium-shimmer {
+      position: relative;
+    }
+    .premium-shimmer::after {
+      content: '';
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0) 60%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: rotate(30deg);
+      animation: shimmerEffect 3s infinite linear;
+      pointer-events: none; /* ไม่ให้บังการคลิก */
+    }
+
+    @keyframes shimmerEffect {
+      0% { transform: translate(-50%, -50%) rotate(30deg); }
+      100% { transform: translate(50%, 50%) rotate(30deg); }
+    }	
   </style>
 </head>
 <body>
@@ -191,6 +220,45 @@
       document.getElementById('badge-text').innerText = "เป้าหมาย: " + text;
       document.getElementById('badge-remain').innerText = remain > 0 ? `ออมเพิ่ม ฿ ${remain.toLocaleString()}` : "บรรลุเป้าหมายแล้ว!";
       document.getElementById('badge-progress').style.width = percent + "%";
+
+      // 💳 ระบบเปลี่ยนสีบัตรตามระดับเงินออม (Dynamic Card)
+      // ==========================================
+      let cardEl = document.querySelector('.virtual-card');
+      let cardBg1, cardBg2;
+      
+      // ล้างเอฟเฟกต์พรีเมียมออกก่อน (เผื่อยอดเงินลดลง)
+      cardEl.classList.remove('premium-shimmer');
+
+      if (balance < 500) {
+        // 🥉 ระดับทองแดง (Bronze)
+        cardBg1 = "#c77950"; 
+        cardBg2 = "#8a4f31";
+        cardEl.style.boxShadow = "0 15px 35px rgba(199, 121, 80, 0.2)";
+      } 
+      else if (balance < 1000) {
+        // 🥈 ระดับเงิน (Silver)
+        cardBg1 = "#bdc3c7";
+        cardBg2 = "#7f8c8d";
+        cardEl.style.boxShadow = "0 15px 35px rgba(127, 140, 141, 0.3)";
+      } 
+      else if (balance < 5000) {
+        // 🥇 ระดับทอง (Gold)
+        cardBg1 = "#e6c27a";
+        cardBg2 = "#aa7700";
+        cardEl.style.boxShadow = "0 15px 35px rgba(230, 194, 122, 0.4)";
+        cardEl.classList.add('premium-shimmer'); // เปิดเอฟเฟกต์แสงสะท้อน
+      } 
+      else {
+        // 🏆 ระดับสูงสุด (Black Card / Diamond)
+        cardBg1 = "#1a1a2e";
+        cardBg2 = "#16213e";
+        cardEl.style.boxShadow = "0 15px 35px rgba(0, 0, 0, 0.6)";
+        cardEl.classList.add('premium-shimmer'); // เปิดเอฟเฟกต์แสงสะท้อน
+      }
+
+      // สั่งเปลี่ยนตัวแปรสีใน CSS ทันที
+      cardEl.style.setProperty('--card-bg-1', cardBg1);
+      cardEl.style.setProperty('--card-bg-2', cardBg2);
 
       // วาดประวัติ 5 รายการล่าสุด
       let stList = document.getElementById('statement-list');
