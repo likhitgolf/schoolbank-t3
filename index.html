@@ -211,7 +211,7 @@
       // คำนวณเป้าหมาย (Badge)
       let target = 0, text = "", remain = 0, percent = 0;
       if (balance < 200) { target = 200; text = "ระดับทองแดง 🥉"; }
-      else if (balance < 400) { target = 400; text = "ระดับเงิน 🥈"; }
+      else if (balance < 300) { target = 300; text = "ระดับเงิน 🥈"; }
       else if (balance < 500) { target = 500; text = "ระดับทอง 🥇"; }
       else { target = balance; text = "ระดับสูงสุด 🏆"; percent = 100; }
 
@@ -235,7 +235,7 @@
         cardBg2 = "#8a4f31";
         cardEl.style.boxShadow = "0 15px 35px rgba(199, 121, 80, 0.2)";
       } 
-      else if (balance < 400) {
+      else if (balance < 300) {
         // 🥈 ระดับเงิน (Silver)
         cardBg1 = "#bdc3c7";
         cardBg2 = "#7f8c8d";
