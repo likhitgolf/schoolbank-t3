@@ -210,9 +210,9 @@
 
       // คำนวณเป้าหมาย (Badge)
       let target = 0, text = "", remain = 0, percent = 0;
-      if (balance < 500) { target = 500; text = "ระดับทองแดง 🥉"; }
-      else if (balance < 1000) { target = 1000; text = "ระดับเงิน 🥈"; }
-      else if (balance < 5000) { target = 5000; text = "ระดับทอง 🥇"; }
+      if (balance < 100) { target = 100; text = "ระดับทองแดง 🥉"; }
+      else if (balance < 300) { target = 300; text = "ระดับเงิน 🥈"; }
+      else if (balance < 500) { target = 500; text = "ระดับทอง 🥇"; }
       else { target = balance; text = "ระดับสูงสุด 🏆"; percent = 100; }
 
       if(percent !== 100) { percent = (balance / target) * 100; remain = target - balance; }
